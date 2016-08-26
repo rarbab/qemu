@@ -325,6 +325,11 @@ static int spapr_populate_memory_node(void *fdt, int nodeid, hwaddr start,
                       sizeof(mem_reg_property))));
     _FDT((fdt_setprop(fdt, off, "ibm,associativity", associativity,
                       sizeof(associativity))));
+
+    if (numa_info[nodeid].compat)
+        _FDT((fdt_setprop_string(fdt, off, "compatible",
+                                 numa_info[nodeid].compat)));
+
     return off;
 }
 
