@@ -326,6 +326,16 @@ static int spapr_populate_memory_node(void *fdt, int nodeid, hwaddr start,
     _FDT((fdt_setprop(fdt, off, "ibm,associativity", associativity,
                       sizeof(associativity))));
 
+    if (numa_info[nodeid].node_usable != size) {
+        uint64_t mem_usable_property[2];
+
+        mem_usable_property[0] = cpu_to_be64(start);
+        mem_usable_property[1] = cpu_to_be64(numa_info[nodeid].node_usable);
+
+        _FDT((fdt_setprop(fdt, off, "linux,usable-memory", mem_usable_property,
+                          sizeof(mem_usable_property))));
+    }
+
     if (numa_info[nodeid].compat)
         _FDT((fdt_setprop_string(fdt, off, "compatible",
                                  numa_info[nodeid].compat)));
