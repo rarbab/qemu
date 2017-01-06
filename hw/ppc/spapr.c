@@ -336,6 +336,9 @@ static int spapr_populate_memory_node(void *fdt, int nodeid, hwaddr start,
                           sizeof(mem_usable_property))));
     }
 
+    if (numa_info[nodeid].hotpluggable)
+        _FDT((fdt_setprop(fdt, off, "hotpluggable", 0, 0)));
+
     if (numa_info[nodeid].compat)
         _FDT((fdt_setprop_string(fdt, off, "compatible",
                                  numa_info[nodeid].compat)));
