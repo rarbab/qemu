@@ -180,6 +180,10 @@ static void numa_node_parse(NumaNodeOptions *node, QemuOpts *opts, Error **errp)
         error_setg(errp, "qemu: cannot specify both mem= and memdev=");
         return;
     }
+    if (node->has_usable && !node->has_mem) {
+        error_setg(errp, "qemu: cannot specify usable= without mem=");
+        return;
+    }
 
     if (have_memdevs == -1) {
         have_memdevs = node->has_memdev;
@@ -198,7 +202,24 @@ static void numa_node_parse(NumaNodeOptions *node, QemuOpts *opts, Error **errp)
             mem_size <<= 20;
         }
         numa_info[nodenr].node_mem = mem_size;
+        numa_info[nodenr].node_usable = mem_size;
     }
+    if (node->has_usable) {
+        uint64_t mem_usable = node->usable;
+        const char *mem_str = qemu_opt_get(opts, "usable");
+        /* Fix up legacy suffix-less format */
+        if (g_ascii_isdigit(mem_str[strlen(mem_str) - 1])) {
+            mem_usable <<= 20;
+        }
+
+        if (mem_usable > numa_info[nodenr].node_mem) {
+            error_setg(errp, "qemu: usable size cannot be larger than node");
+            return;
+        }
+
+        numa_info[nodenr].node_usable = mem_usable;
+    }
+
     if (node->has_memdev) {
         Object *o;
         o = object_resolve_path_type(node->memdev, TYPE_MEMORY_BACKEND, NULL);

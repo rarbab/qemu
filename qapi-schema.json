@@ -5707,6 +5707,8 @@
 #       Equally divide total memory among nodes if both @mem and @memdev are
 #       omitted.
 #
+# @usable: amount of memory which is usable
+#
 # @memdev: memory backend object.  If specified for one node,
 #          it must be specified for all nodes.
 #
@@ -5718,6 +5720,7 @@
    '*cpus':   ['uint16'],
    '*compat': 'str',
    '*mem':    'size',
+   '*usable':    'size',
    '*memdev': 'str' }}
 
 ##

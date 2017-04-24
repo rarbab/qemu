@@ -17,6 +17,7 @@ struct numa_addr_range {
 
 typedef struct node_info {
     uint64_t node_mem;
+    uint64_t node_usable;
     unsigned long *node_cpu;
     struct HostMemoryBackend *node_memdev;
     const char *compat;
