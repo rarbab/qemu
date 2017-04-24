@@ -22,6 +22,7 @@ typedef struct node_info {
     struct HostMemoryBackend *node_memdev;
     const char *compat;
     bool present;
+    bool hotpluggable;
     QLIST_HEAD(, numa_addr_range) addr; /* List to store address ranges */
 } NodeInfo;
 

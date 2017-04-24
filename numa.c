@@ -185,6 +185,8 @@ static void numa_node_parse(NumaNodeOptions *node, QemuOpts *opts, Error **errp)
         return;
     }
 
+    numa_info[nodenr].hotpluggable = node->has_hotpluggable;
+
     if (have_memdevs == -1) {
         have_memdevs = node->has_memdev;
     }

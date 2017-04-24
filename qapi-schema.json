@@ -5709,6 +5709,9 @@
 #
 # @usable: amount of memory which is usable
 #
+# @hotpluggable: hint that this node's memory could be removed while machine
+#                is running
+#
 # @memdev: memory backend object.  If specified for one node,
 #          it must be specified for all nodes.
 #
@@ -5721,6 +5724,7 @@
    '*compat': 'str',
    '*mem':    'size',
    '*usable':    'size',
+   '*hotpluggable': 'bool',
    '*memdev': 'str' }}
 
 ##
