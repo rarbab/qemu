@@ -173,6 +173,9 @@ static void numa_node_parse(NumaNodeOptions *node, QemuOpts *opts, Error **errp)
         bitmap_set(numa_info[nodenr].node_cpu, cpus->value, 1);
     }
 
+    if (node->has_compat)
+        numa_info[nodenr].compat = qemu_opt_get(opts, "compat");
+
     if (node->has_mem && node->has_memdev) {
         error_setg(errp, "qemu: cannot specify both mem= and memdev=");
         return;

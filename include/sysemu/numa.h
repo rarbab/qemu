@@ -19,6 +19,7 @@ typedef struct node_info {
     uint64_t node_mem;
     unsigned long *node_cpu;
     struct HostMemoryBackend *node_memdev;
+    const char *compat;
     bool present;
     QLIST_HEAD(, numa_addr_range) addr; /* List to store address ranges */
 } NodeInfo;

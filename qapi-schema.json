@@ -5701,6 +5701,8 @@
 # @cpus: VCPUs belonging to this node (assign VCPUS round-robin
 #         if omitted)
 #
+# @compat: dt compatible id of this node's memory
+#
 # @mem: memory size of this node; mutually exclusive with @memdev.
 #       Equally divide total memory among nodes if both @mem and @memdev are
 #       omitted.
@@ -5714,6 +5716,7 @@
   'data': {
    '*nodeid': 'uint16',
    '*cpus':   ['uint16'],
+   '*compat': 'str',
    '*mem':    'size',
    '*memdev': 'str' }}
 
